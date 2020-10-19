@@ -2,7 +2,9 @@ package com.dream.shiro;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.dream.entity.User;
+import com.dream.entity.Users;
 import com.dream.service.UserService;
+import com.dream.service.UsersService;
 import com.dream.utils.JwtUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -18,7 +20,7 @@ public class AccountRealm extends AuthorizingRealm {
     JwtUtils jwtUtils;
 
     @Autowired
-    UserService userService;
+    UsersService userService;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -37,12 +39,12 @@ public class AccountRealm extends AuthorizingRealm {
 
         String userId = jwtUtils.getClaimByToken((String) jwtToken.getPrincipal()).getSubject();
 
-        User user = userService.getById(Long.valueOf(userId));
+        Users user = userService.getById(Long.valueOf(userId));
         if (user == null) {
             throw new UnknownAccountException("账户不存在");
         }
 
-        if (user.getStatus() == -1) {
+        if (user.getUserStatus() == -1) {
             throw new LockedAccountException("账户已被锁定");
         }
 

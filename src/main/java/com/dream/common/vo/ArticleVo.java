@@ -1,30 +1,15 @@
-package com.dream.entity;
+package com.dream.common.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author lam
- * @since 2020-10-15
- */
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("t_articles")
-public class Articles implements Serializable {
-
+public class ArticleVo implements Serializable {
     private static final long serialVersionUID = 1L;
-
     /**
      * 博文ID
      */
@@ -40,11 +25,6 @@ public class Articles implements Serializable {
      * 博文标题
      */
     private String articleTitle;
-
-    /**
-     * 博文内容
-     */
-    private String articleContent;
 
     /**
      * 浏览量
@@ -64,6 +44,4 @@ public class Articles implements Serializable {
     private Long articleLikeCount;
 
     private String articleDescription;
-
-
 }

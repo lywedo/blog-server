@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author lam
- * @since 2020-10-13
+ * @since 2020-10-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -81,6 +81,8 @@ public class Users implements Serializable {
      * 用户昵称
      */
     private String userNickname;
+
+    private Integer userStatus;
 
 
 }
