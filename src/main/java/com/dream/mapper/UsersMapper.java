@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author lam
- * @since 2020-10-13
+ * @since 2020-10-16
  */
 public interface UsersMapper extends BaseMapper<Users> {
-
+    Users getUsersByUsername(String username);
 }
