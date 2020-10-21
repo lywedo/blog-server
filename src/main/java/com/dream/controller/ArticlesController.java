@@ -2,13 +2,16 @@ package com.dream.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dream.common.dto.ArticlesDto;
 import com.dream.common.lang.Result;
 import com.dream.common.vo.ArticleVo;
 import com.dream.entity.Articles;
 import com.dream.service.ArticlesService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,7 @@ import java.util.ArrayList;
  * @author lam
  * @since 2020-10-12
  */
+@Slf4j
 @RestController
 @RequestMapping("/articles")
 public class ArticlesController {
@@ -48,4 +52,12 @@ public class ArticlesController {
     public Result detail(@PathVariable(name = "id") Long id) {
         return Result.succ(articlesService.getById(id));
     }
+
+    @PostMapping("publish")
+    public Result publishBlog(@RequestBody ArticlesDto article){
+        log.info(JSON.toJSONString(article));
+        return Result.succ(article);
+    }
+
+
 }
