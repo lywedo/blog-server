@@ -1,6 +1,7 @@
 package com.dream.controller;
 
 
+import cn.hutool.Hutool;
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -12,9 +13,11 @@ import com.dream.common.vo.ArticleVo;
 import com.dream.entity.Articles;
 import com.dream.service.ArticlesService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -53,10 +56,22 @@ public class ArticlesController {
         return Result.succ(articlesService.getById(id));
     }
 
+    @RequiresAuthentication
     @PostMapping("publish")
     public Result publishBlog(@RequestBody ArticlesDto article){
         log.info(JSON.toJSONString(article));
-        return Result.succ(article);
+        Articles articlesEntry = new Articles();
+        BeanUtil.copyProperties(article, articlesEntry);
+        articlesEntry.setArticleDate(LocalDateTime.now());
+        articlesEntry.setArticleViews((long) 0);
+        articlesEntry.setArticleCommentCount((long) 0);
+        articlesEntry.setArticleLikeCount((long) 0);
+        boolean b = articlesService.saveOrUpdate(articlesEntry);
+        if (b){
+            return Result.succ("成功");
+        }else {
+            return Result.fail("数据库保存失败");
+        }
     }
 
 
