@@ -36,7 +36,7 @@ public class ArticlesController {
     ArticlesService articlesService;
 
     @GetMapping("/query")
-    public Result list(@RequestParam(defaultValue = "1", name = "page") Integer currentPage, @RequestParam(name = "pageSize")Integer pageSize) {
+    public Result list(@RequestParam(defaultValue = "1", name = "page") Integer currentPage, @RequestParam(name = "pageSize", defaultValue = "5")Integer pageSize) {
 
         Page page = new Page(currentPage, pageSize);
         IPage pageData = articlesService.page(page, new QueryWrapper<Articles>().orderByDesc("article_date"));
