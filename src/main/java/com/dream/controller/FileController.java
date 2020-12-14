@@ -60,7 +60,7 @@ public class FileController {
             // 得到文件流
             final InputStream is = file.getInputStream();
             // 文件名
-            final String fileName = file.getOriginalFilename();
+            final String fileName = String.valueOf(System.nanoTime());
             // 把文件放到minio的boots桶里面
             minioClient.putObject(minioParam.getBucketName(), fileName, is, new PutObjectOptions(is.available(), -1));
             // 关闭输入流
